@@ -2,9 +2,9 @@
 
 <br /><br />
 @using (Html.BeginForm("Index", "Home"))
-        {
-          <b>Search By :</b>
-          <br />
+{
+    <b>Search By :</b>
+    <br />
 
     @Html.DropDownList("SearchBy", new List<SelectListItem>
 {
@@ -12,13 +12,19 @@
     new SelectListItem{Text="Age", Value="Age" },
     new SelectListItem{Text="Location", Value="Location" }
 })
-          <br />
-          <br />
-          @Html.TextBox("Search")<input type="submit" id="Searchbtn" value="Search" />
-      
+    <br />
+    <br />
+    @Html.TextBox("Search")<input type="submit" id="Searchbtn" value="Search" />
+
 }
 
 <br />
+@if (TempData["Msg"] != null)
+{
+<h6 style="color:red">
+    @TempData["Msg"].ToString();
+</h6>
+}
 <table class="table" border="1">
     <thead>
         <tr>
@@ -40,44 +46,44 @@
             <th>
                 Location
             </th>
-            <th></th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody id="DataSearching">
         @if (Model.Count() == 0)
         {
             <tr>
-                <td colspan="6" style="color:red">
+                <td colspan="7" style="color:red">
                     No records found..
                 </td>
             </tr>
         }
         @foreach (var item in Model)
         {
-        <tr id="@item.ID">
-            <td>
-                @item.ID
-            </td>
-            <td>
-                @item.Name
-            </td>
-            <td>
-                @item.Age
-            </td>
-            <td>
-                @item.Marital_Status
-            </td>
-            <td>
-                @item.Salary
-            </td>
-            <td>
-                @item.Location
-            </td>
-            <td>
-                <a class="delete" id="@item.ID" href="#">Delete</a> 
-                
-            </td>
-        </tr>
+            <tr id="@item.ID">
+                <td>
+                    @item.ID
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.Age
+                </td>
+                <td>
+                    @item.Marital_Status
+                </td>
+                <td>
+                    @item.Salary
+                </td>
+                <td>
+                    @item.Location
+                </td>
+                <td>
+                    <a class="delete" id="@item.ID" href="#">Delete</a>
+
+                </td>
+            </tr>
 
         }
     </tbody>
@@ -91,19 +97,19 @@
         $('a.delete').click(function () {
             var id = $(this).attr("id");
             if (confirm("Are you sure you want to delete?"))
-            $.ajax({
-                url: '/Home/Delete', type: "POST", dataType: "text",
-                data: { id: id },
-                success: function (data) {
-                    $('#tr' + id).html(data);
-                    $('#' + id).remove();
-                },
-                error: function (status, error) {
-                    
-                    alert(status);
-                    alert(error);
-                }
-            });
+                $.ajax({
+                    url: '/Home/Delete', type: "POST", dataType: "text",
+                    data: { id: id },
+                    success: function (data) {
+                        $('#tr' + id).html(data);
+                        $('#' + id).remove();
+                    },
+                    error: function (status, error) {
+
+                        alert(status);
+                        alert(error);
+                    }
+                });
         });
     });
 

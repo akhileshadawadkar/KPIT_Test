@@ -30,11 +30,11 @@ namespace Test.Controllers
                 }
                 catch (FormatException ex)
                 {
-                    ViewBag.Exception = ex.Message.ToString();
+                    TempData["Msg"] = ex.Message.ToString();
                 }
                 catch(Exception ex)
                 {
-                    ViewBag.Exception = ex.Message.ToString();
+                    TempData["Msg"] = ex.Message.ToString();
                 }
 
             }
@@ -53,11 +53,11 @@ namespace Test.Controllers
                 }
                 catch (FormatException ex)
                 {
-                    ViewBag.Exception = ex.Message.ToString();
+                    TempData["Msg"] = ex.Message.ToString();
                 }
                 catch (Exception ex)
                 {
-                    ViewBag.Exception = ex.Message.ToString();
+                    TempData["Msg"] = ex.Message.ToString();
                 }
             }
             if (SearchBy == "Location")
@@ -76,11 +76,11 @@ namespace Test.Controllers
                 }
                 catch (FormatException ex)
                 {
-                    ViewBag.Exception = ex.Message.ToString();
+                    TempData["Msg"] = ex.Message.ToString();
                 }
                 catch (Exception ex)
                 {
-                    ViewBag.Exception = ex.Message.ToString();
+                    TempData["Msg"] = ex.Message.ToString();
                 }
             }
             return View(db.tbl_Employees.ToList());
@@ -102,9 +102,9 @@ namespace Test.Controllers
             }
             catch(Exception ex)
             {
-                ViewBag.Exception = ex.Message.ToString();
+                TempData["Msg"] = ex.Message.ToString();
             }
-            return Content("Deleted Successfully!");
+            return Content("");
         }
     }
 }
